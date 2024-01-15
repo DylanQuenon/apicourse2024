@@ -23,9 +23,9 @@ class AppFixtures extends Fixture
 
         // admin 
         $adminUser = new User();
-        $adminUser->setFirstName('Jordan')
-                ->setLastName('Berti')
-                ->setEmail('berti@epse.be')
+        $adminUser->setFirstName('Dylan')
+                ->setLastName('Quenon')
+                ->setEmail('dylan@epse.be')
                 ->setPassword($this->passwordHasher->hashPassword($adminUser,'password'))
                 ->setRoles(['ROLE_ADMIN']);
         $manager->persist($adminUser);
