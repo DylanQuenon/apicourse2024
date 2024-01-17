@@ -4,54 +4,55 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
-    normalizationContext:[
-        'groups'=> ['users_read']
+    normalizationContext: [
+        'groups' => ['users_read']
     ]
 )]
-#[ApiFilter(SearchFilter::class,properties:[
-    "firstName"=>"partial",
-    "lastName",
-    "company"
-])]
+#[UniqueEntity(fields:["email"], message:"Un utilisateur ayant cette adresse E-mail existe déjà")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['users_read', 'customers_read','invoices_read','invoices_subresource'])]
+    #[Groups(['users_read','customers_read','invoices_read', 'invoices_subresource'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['users_read', 'customers_read','invoices_read','invoices_subresource'])]
+    #[Groups(['users_read','customers_read','invoices_read', 'invoices_subresource'])]
+    #[Assert\NotBlank(message: "L'adresse E-mail est obligatoire")]
+    #[Assert\Email(message: "Le format de l'adresse E-mail doit être valide")]
     private ?string $email = null;
 
     #[ORM\Column]
-    #[Groups(['users_read', 'customers_read'])]
+    #[Groups(['users_read','customers_read'])]
     private array $roles = [];
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Le mot de passe est obligatoire")]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['users_read', 'customers_read','invoices_read','invoices_subresource'])]
+    #[Groups(['users_read','customers_read','invoices_read', 'invoices_subresource'])]
+    #[Assert\NotBlank(message: "Le prénom est obligatoire")]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['users_read', 'customers_read','invoices_read','invoices_subresource'])]
+    #[Groups(['users_read','customers_read','invoices_read', 'invoices_subresource'])]
+    #[Assert\NotBlank(message: "Le nom est obligatoire")]
     private ?string $lastName = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Customer::class, orphanRemoval: true)]
