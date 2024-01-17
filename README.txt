@@ -38,3 +38,9 @@ pagination_enabled: false => désactive pagination
 
 http://127.0.0.1:8000/api/customers?pagination=true&itemsPerPage=10
 on peut le faire dans entity et utiliser les groups pour permettre de lire d'autres entity de l'api attention aux boucles infinies ou elles s'appellent elles memes
+
+//operations pour autoriser certaines requetes 
+    operations:[ new Get()] => accepte que les get id
+
+
+//partie difficile
