@@ -198,3 +198,9 @@ Dans invoice quand on fait les assert
 # Postman
 - Télécharger et créer une collection avec new choisir get, etc et placer l'url de la requete 
 - Faire des requêtes GET, POST etc. vers l'API
+
+# OPEN SSL
+
+Telecharger fichier openssl
+mettre dans le disque local
+C:\OpenSSL-Win64\bin dans variable d'environnement

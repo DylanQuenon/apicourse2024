@@ -3,7 +3,7 @@ api_platform:
     version: 1.0.0
     formats:
         jsonld: ['application/ld+json']
-        json: ['application/json'] #accepter le json
+        json: ['application/json']
     docs_formats:
         jsonld: ['application/ld+json']
         jsonopenapi: ['application/vnd.openapi+json']
@@ -21,6 +21,6 @@ api_platform:
             rfc_7807_compliant_errors: true
     collection:
         pagination:
-            items_per_page_parameter_name: "count"
+            items_per_page_parameter_name: 'count'
     event_listeners_backward_compatibility_layer: true
     keep_legacy_inflector: false
